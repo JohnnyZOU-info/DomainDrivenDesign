@@ -31,10 +31,13 @@ namespace Domain.WebApi.Controllers
         public async Task<ActionResult<GetOrderQueryResponse>> CreateOrder(CreateOrderCommand command, CancellationToken token)
         {
             await mediator.Command(command, token);
-            var response = await mediator.Query<GetOrderQuery, GetOrderQueryResponse>(new GetOrderQuery
-            {
-                OrderId = command.Id
-            }, token);
+            var response = await mediator.Query<GetOrderQuery, GetOrderQueryResponse>(
+                new GetOrderQuery
+                {
+                    OrderId = command.Id
+                }, 
+                token);
+
             return response;
         }
     }
